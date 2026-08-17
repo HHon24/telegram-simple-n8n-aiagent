@@ -1,0 +1,590 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Telegram Trigger1').item.json.message.text }} {{ $json.message.text }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        336,
+        -272
+      ],
+      "id": "f2355108-4564-4077-a8c8-2c592ad20b65",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "deepseek-v4-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatDeepSeek",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        -304
+      ],
+      "id": "4e95235f-875b-4c82-8e63-2de5ab3cafab",
+      "name": "DeepSeek Chat Model",
+      "credentials": {
+        "deepSeekApi": {
+          "id": "tJj8A6bCCMukSRDq",
+          "name": "DeepSeek account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "=2045055757",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        672,
+        -272
+      ],
+      "id": "3a2b52fe-8531-43e5-924a-fef24125f8cb",
+      "name": "Send a text message",
+      "webhookId": "c72c23a2-9e60-4c8f-9abc-51e41be16dee",
+      "credentials": {
+        "telegramApi": {
+          "id": "AtLdbpy7AWJWZ1xu",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        48,
+        176
+      ],
+      "id": "e4af14b4-7d43-4476-9e31-72177df34751",
+      "name": "Wikipedia"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        288,
+        176
+      ],
+      "id": "17365856-5d88-4904-bec4-fb930f74f8c7",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        160,
+        -128
+      ],
+      "id": "cadeba82-4978-4799-b663-a83adde16a6c",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "VM3Ah6q9WB70DzhY",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        -48,
+        -432
+      ],
+      "id": "5d3fc712-0a90-4e33-a48b-cfe208f95390",
+      "name": "Telegram Trigger1",
+      "webhookId": "ad5d4a94-2220-4fbd-bb2e-948e3e76ecd5",
+      "credentials": {
+        "telegramApi": {
+          "id": "AtLdbpy7AWJWZ1xu",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c6976acd-ee3f-4ff1-9adb-04bd1e0b8b32",
+              "leftValue": "={{ $json.message.document?.file_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        144,
+        -432
+      ],
+      "id": "dc77e368-ece9-4098-b48f-15daaf2061ec",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $('Telegram Trigger1').item.json.message.document.file_id }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        320,
+        -560
+      ],
+      "id": "bd414598-1d26-405f-9198-342f0db92611",
+      "name": "Get a file",
+      "webhookId": "c8b93b1f-dd18-4d4a-9955-39c7d172efb4",
+      "credentials": {
+        "telegramApi": {
+          "id": "AtLdbpy7AWJWZ1xu",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "2045055757",
+        "text": "File Upload Successful",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        896,
+        -592
+      ],
+      "id": "102b19e2-7bfd-4873-9b25-963c1e8ee470",
+      "name": "Send a text message1",
+      "webhookId": "043f10b4-b4c8-402b-876e-86cccaca9d69",
+      "credentials": {
+        "telegramApi": {
+          "id": "AtLdbpy7AWJWZ1xu",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "format": "imperial",
+        "cityName": "Kuala Lumpur",
+        "language": "cn"
+      },
+      "type": "n8n-nodes-base.openWeatherMapTool",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        -160
+      ],
+      "id": "ca06281f-50cd-4e3b-b074-4a4530bd575a",
+      "name": "OpenWeatherMap",
+      "credentials": {
+        "openWeatherMapApi": {
+          "id": "614niRfEIhZ5mYXM",
+          "name": "OpenWeatherMap account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        416,
+        -416
+      ],
+      "id": "b4120c9e-29f1-4d0e-8ea0-fdbbd968725e",
+      "name": "Embeddings Google Gemini2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "VM3Ah6q9WB70DzhY",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        672,
+        -416
+      ],
+      "id": "33e0c93a-9a9e-4752-b123-8fdff226ff7f",
+      "name": "Default Data Loader1"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        496,
+        64
+      ],
+      "id": "9b6a360a-2e2f-4be9-9414-bfb5550bbba4",
+      "name": "Embeddings Google Gemini",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "VM3Ah6q9WB70DzhY",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "n8n_table",
+          "mode": "list",
+          "cachedResultName": "n8n_table"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        544,
+        -592
+      ],
+      "id": "a05680cb-997c-42d4-889b-64261b83d926",
+      "name": "File Update RAG",
+      "credentials": {
+        "supabaseApi": {
+          "id": "6ED0a6dvUVxRevlI",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Search the user's uploaded knowledge base stored in Supabase. Use this tool whenever the user's question may be answered from uploaded PDFs, documents, notes, manuals, or reference materials. Base the answer on retrieved document content and avoid inventing information that is not supported by the retrieved context.",
+        "tableName": {
+          "__rl": true,
+          "value": "n8n_table",
+          "mode": "list",
+          "cachedResultName": "n8n_table"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        576,
+        -80
+      ],
+      "id": "39297ec3-8db1-48b6-884a-98a3e05a182a",
+      "name": "File Read RAG",
+      "credentials": {
+        "supabaseApi": {
+          "id": "6ED0a6dvUVxRevlI",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Get the latest exchange rate between two currencies. Use this tool when the user asks about currency conversion, exchange rates, or converting money between currencies.",
+        "url": "https://api.frankfurter.dev/v2/rate/{{ $fromAI(\"from_currency\") }}/{{ $fromAI(\"to_currency\") }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.5,
+      "position": [
+        -240,
+        -16
+      ],
+      "id": "882b2413-1fa9-4a5e-8fb1-fdc1d2d99999",
+      "name": "Currency Exchange"
+    },
+    {
+      "parameters": {
+        "description": "Use this tool to get real-time weather, forecast and currency exchange for any city or location. Input should be the city name.",
+        "workflowId": {
+          "__rl": true,
+          "value": "nN9q1MN3BcyDWyJx",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/nN9q1MN3BcyDWyJx",
+          "cachedResultName": "Weather Workflow"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        160,
+        176
+      ],
+      "id": "2035402d-35dc-4e03-af0d-afa25f0cb62c",
+      "name": "Weather and Currency"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.message.chat.id }}",
+        "databaseName": "telegram_bot"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryMongoDbChat",
+      "typeVersion": 1.1,
+      "position": [
+        304,
+        -112
+      ],
+      "id": "5d652d13-d857-4ca5-a35b-681e40701ba4",
+      "name": "MongoDB Chat Memory",
+      "credentials": {
+        "mongoDb": {
+          "id": "SSa87vTtaHgZaKKH",
+          "name": "MongoDB account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "DeepSeek Chat Model": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Get a file",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a file": {
+      "main": [
+        [
+          {
+            "node": "File Update RAG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenWeatherMap": {
+      "ai_tool": [
+        []
+      ]
+    },
+    "Embeddings Google Gemini2": {
+      "ai_embedding": [
+        [
+          {
+            "node": "File Update RAG",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader1": {
+      "ai_document": [
+        [
+          {
+            "node": "File Update RAG",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Google Gemini": {
+      "ai_embedding": [
+        [
+          {
+            "node": "File Read RAG",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "File Update RAG": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "File Read RAG": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Currency Exchange": {
+      "ai_tool": [
+        []
+      ]
+    },
+    "Weather and Currency": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MongoDB Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "errorWorkflow": "rC9n1xm2C40bUJI7",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "dd2a87b1-adb0-481b-8cba-3e35ebdc0c35",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "db2060a3cb5c9adeab710138277777d811ead0f920454669c9e11bb3ea4cc901"
+  },
+  "nodeGroups": [],
+  "id": "nIJzDT0TCf9jfzjl",
+  "tags": []
+}
