@@ -2,6 +2,9 @@
 *Read this in other languages: [English](#english), [中文](#中文)*
 
 ---
+<img width="1572" height="952" alt="image" src="https://github.com/user-attachments/assets/6d54d6ea-012b-46fd-9c60-69b6b863060b" />
+<img width="1012" height="497" alt="image" src="https://github.com/user-attachments/assets/c11719c2-c5b1-4d7b-9803-60b55e8be4f3" />
+<img width="648" height="456" alt="image" src="https://github.com/user-attachments/assets/d3885157-dbdb-4d70-8c7b-5960262538e3" />
 
 <a name="english"></a>
 ## 🇬🇧 English
@@ -58,7 +61,10 @@ The workflow consists of two main execution branches:
 
 ### 📌 架构设计
 
-![Workflow Architecture](./workflow-screenshot.png)
+<img width="1572" height="952" alt="image" src="https://github.com/user-attachments/assets/0d3aced6-41d4-4c9a-9785-92653babe329" />
+<img width="1012" height="497" alt="image" src="https://github.com/user-attachments/assets/19188b22-d692-4b9a-bd08-4eb7c4ac5640" />
+<img width="648" height="456" alt="image" src="https://github.com/user-attachments/assets/515f22ad-a352-4016-8f2b-c2aef3dcda82" />
+
 
 整体流程分为两大执行分支：
 * **文档入库分支 (RAG Pipeline)**：自动识别用户上传的文件（PDF/文本等），通过数据加载器分块切片，调用 Google Gemini 生成向量嵌入并存储至知识库。
