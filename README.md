@@ -13,7 +13,6 @@ An automated, production-ready AI Agent workflow built with **n8n**, **Telegram 
 
 ### 📌 Architecture Overview
 
-![Workflow Architecture](./workflow-screenshot.png)
 
 The workflow consists of two main execution branches:
 * **Document Ingestion Branch (RAG Pipeline)**: Automatically detects uploaded files (PDF/Docs), parses and chunks text via Document Loaders, generates embeddings with Google Gemini, and indexes vectors into the knowledge base.
