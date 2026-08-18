@@ -2,9 +2,6 @@
 *Read this in other languages: [English](#english), [中文](#中文)*
 
 ---
-<img width="1572" height="952" alt="image" src="https://github.com/user-attachments/assets/6d54d6ea-012b-46fd-9c60-69b6b863060b" />
-<img width="1012" height="497" alt="image" src="https://github.com/user-attachments/assets/c11719c2-c5b1-4d7b-9803-60b55e8be4f3" />
-<img width="648" height="456" alt="image" src="https://github.com/user-attachments/assets/d3885157-dbdb-4d70-8c7b-5960262538e3" />
 
 <a name="english"></a>
 ## 🇬🇧 English
@@ -12,7 +9,9 @@
 An automated, production-ready AI Agent workflow built with **n8n**, **Telegram Bot API**, **Google Gemini**, and **MongoDB Atlas**. This workflow handles multimodal inputs (text and document uploads), implements full Retrieval-Augmented Generation (RAG), maintains persistent session-based conversation memory, and executes dynamic tool calling.
 
 ### 📌 Architecture Overview
-
+<img width="1572" height="952" alt="image" src="https://github.com/user-attachments/assets/6d54d6ea-012b-46fd-9c60-69b6b863060b" />
+<img width="1012" height="497" alt="image" src="https://github.com/user-attachments/assets/c11719c2-c5b1-4d7b-9803-60b55e8be4f3" />
+<img width="648" height="456" alt="image" src="https://github.com/user-attachments/assets/d3885157-dbdb-4d70-8c7b-5960262538e3" />
 
 The workflow consists of two main execution branches:
 * **Document Ingestion Branch (RAG Pipeline)**: Automatically detects uploaded files (PDF/Docs), parses and chunks text via Document Loaders, generates embeddings with Google Gemini, and indexes vectors into the knowledge base.
